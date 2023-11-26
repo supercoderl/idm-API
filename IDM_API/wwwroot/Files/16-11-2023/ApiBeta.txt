@@ -1,0 +1,2 @@
+const baseUrl = 'http://ims-api-staging.viendong.edu.vn:8086';
+const abstractInfraBaseUrl = 'http://116.193.68.171:8086';
