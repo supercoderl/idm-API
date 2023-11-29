@@ -6,6 +6,7 @@ using IDM_API.Data.File;
 using IDM_API.Data.Menu;
 using IDM_API.Data.Progress;
 using IDM_API.Data.Proposal;
+using IDM_API.Data.Role;
 using IDM_API.Data.ScheduleData;
 using IDM_API.Data.Task;
 using IDM_API.Data.UserData;
@@ -70,6 +71,16 @@ namespace IDM_API.Data.MapperData
 
 			CreateMap<tbl_progress, ProgressDTO>();
 			CreateMap<ProgressDTO, tbl_progress>();
+
+			CreateMap<tbl_role, RoleDTO>();
+			CreateMap<RoleDTO, tbl_role>();
+			CreateMap<tbl_role, CreateRoleDTO>();
+			CreateMap<CreateRoleDTO, tbl_role>();
+			CreateMap<tbl_role, UpdateRoleDTO>();
+			CreateMap<UpdateRoleDTO, tbl_role>();
+
+			CreateMap<tbl_user_role, CreateRolesMapUserDTO>();
+			CreateMap<CreateRolesMapUserDTO, tbl_user_role>();
 		}
     }
 }

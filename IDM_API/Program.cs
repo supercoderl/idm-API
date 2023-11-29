@@ -19,6 +19,7 @@ using IDM_API.Services.Notification;
 using IDM_API.Services.Department;
 using IDM_API.Services.Progress;
 using IDM_API.Services.Menu;
+using IDM_API.Services.Role;
 
 namespace IDM_API
 {
@@ -74,6 +75,7 @@ namespace IDM_API
 			builder.Services.AddScoped<IDepartmentService, DepartmentService>();
 			builder.Services.AddScoped<IProgressService, ProgressService>();
 			builder.Services.AddScoped<IMenuService, MenuService>();
+			builder.Services.AddScoped<IRoleService, RoleService>();
 
 			// Add services to the container.
 

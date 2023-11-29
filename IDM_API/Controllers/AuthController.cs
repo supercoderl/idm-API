@@ -61,6 +61,7 @@ namespace IDM_API.Controllers
 			return StatusCode(result.Status, result);
 		}
 
+		[AllowAnonymous]
 		[HttpPost("refresh-token")]
 		public async Task<IActionResult> RefreshToken(RefreshTokenRequest request)
 		{

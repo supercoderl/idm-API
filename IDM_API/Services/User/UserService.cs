@@ -126,7 +126,22 @@ namespace IDM_API.Services.User
 				var userEntity = _mapper.Map<tbl_user>(newUser);
 
 				await _context.tbl_users.AddAsync(userEntity);
+
+				var normalRole = await _context.tbl_roles.FirstOrDefaultAsync(x => x.RoleCode == 300);
+				if (normalRole == null)
+				{
+					return new ApiResponse<UserCreateDTO>
+					{
+						Success = false,
+						Message = "Không tồn tại quyền để tạo tài khoản mới.",
+						Status = (int)HttpStatusCode.BadRequest
+					};
+				}
+
 				await _context.SaveChangesAsync();
+
+				await RelateRole(normalRole.RoleID, userEntity.UserID);
+
 				return new ApiResponse<UserCreateDTO>
 				{
 					Success = true,
@@ -144,6 +159,18 @@ namespace IDM_API.Services.User
 					Status = (int)HttpStatusCode.InternalServerError
 				};
 			}
+		}
+
+		private async Task RelateRole(int roleID, Guid userID)
+		{
+			var userRole = new tbl_user_role
+			{
+				RoleID = roleID,
+				UserID = userID,
+			};
+
+			await _context.tbl_user_roles.AddAsync(userRole);
+			await _context.SaveChangesAsync();
 		}
 
 		public async Task<bool> IsExist(string userName)
