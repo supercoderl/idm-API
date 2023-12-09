@@ -115,7 +115,7 @@ namespace IDM_API.Services.Schedule
 			}
 		}
 
-		public async Task<ApiResponse<List<ScheduleDTO>>> GetSchedules()
+		public async Task<ApiResponse<List<ScheduleDTO>>> GetSchedules(string role)
 		{
 			try
 			{

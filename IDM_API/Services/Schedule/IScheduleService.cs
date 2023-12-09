@@ -5,7 +5,7 @@ namespace IDM_API.Services.Schedule
 {
 	public interface IScheduleService
 	{
-		Task<ApiResponse<List<ScheduleDTO>>> GetSchedules();
+		Task<ApiResponse<List<ScheduleDTO>>> GetSchedules(string role);
 		Task<ApiResponse<ScheduleDTO>> CreateSchedule(CreateScheduleDTO schedule);
 		Task<ApiResponse<ScheduleDTO>> UpdateSchedule(int scheduleID, UpdateScheduleDTO schedule);
 		Task<ApiResponse<Object>> DeleteSchedule(int scheduleID);

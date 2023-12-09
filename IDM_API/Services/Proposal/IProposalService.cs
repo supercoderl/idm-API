@@ -6,9 +6,10 @@ namespace IDM_API.Services.Proposal
 	public interface IProposalService
 	{
 		Task<ApiResponse<List<ProposalDTO>>> GetProposals();
+		Task<ApiResponse<List<ProposalDTO>>> GetProposalsForLecture(Guid userID);
 		Task<ApiResponse<ProposalDTO>> GetProposalByID(int proposalID);
 		Task<ApiResponse<ProposalDTO>> CreateProposal(CreateProposalDTO newProposal);
 		Task<ApiResponse<ProposalDTO>> UpdateProposal(int proposalID, UpdateProposalDTO proposal);
 		Task<ApiResponse<object>> DeleteProposal(int proposalID);
-	}
+ 	}
 }

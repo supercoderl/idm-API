@@ -101,7 +101,7 @@ public partial class IDMContext : DbContext
 
         modelBuilder.Entity<tbl_menu>(entity =>
         {
-            entity.HasKey(e => e.MenuID).HasName("PK__tmp_ms_x__C99ED25023B87FBA");
+            entity.HasKey(e => e.MenuID).HasName("PK__tmp_ms_x__C99ED2501ADEFB15");
 
             entity.HasOne(d => d.MenuParent).WithMany(p => p.InverseMenuParent).HasConstraintName("FK_parent_child");
         });

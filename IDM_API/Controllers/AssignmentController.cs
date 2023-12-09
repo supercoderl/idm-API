@@ -29,6 +29,17 @@ namespace IDM_API.Controllers
 			return StatusCode(result.Status, result);
 		}
 
+		[HttpGet("get-assignments-for-lecture")]
+		public async Task<IActionResult> GetAssignmentsForLecture()
+		{
+			if (User.FindFirstValue("UserID") is not null)
+			{
+				var result = await _assignmentService.GetAssignmentsForLecture(Guid.Parse(User.FindFirstValue("UserID")));
+				return StatusCode(result.Status, result);
+			}
+			return Unauthorized();
+		}
+
 		[HttpGet("get-assignment/{assignmentID}")]
 		public async Task<IActionResult> GetAssignment(int assignmentID)
 		{
@@ -50,6 +61,7 @@ namespace IDM_API.Controllers
 		{
 			if (User.FindFirstValue("UserID") is not null)
 				assignment.UpdatedBy = Guid.Parse(User.FindFirstValue("UserID"));
+			assignment.UpdatedDateTime = DateTime.Now;
 			var result = await _assignmentService.UpdateAssignment(assignmentID, assignment);
 			return StatusCode(result.Status, result);
 		}

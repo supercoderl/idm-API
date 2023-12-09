@@ -64,7 +64,7 @@ namespace IDM_API.Services.Jwt
 			return new LoginResult
 			{
 				Token = token,
-				RefreshToken = refreshToken,
+				RefreshToken = refreshToken
 			};
 		}
 

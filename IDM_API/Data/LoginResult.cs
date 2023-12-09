@@ -4,7 +4,7 @@
     {
         public TokenResult Token { get; set; }
         public RefreshTokenResult RefreshToken { get; set; }
-        public UserResult UserResult;
+        public UserResult UserResult { get; set; }
     }
 
     public class TokenResult

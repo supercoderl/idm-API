@@ -30,6 +30,17 @@ namespace IDM_API.Controllers
 			return StatusCode(result.Status, result);
 		}
 
+		[HttpGet("get-proposals-for-lecture")]
+		public async Task<IActionResult> GetProposalsForLecture()
+		{
+			if(User.FindFirstValue("UserID") is not null)
+			{
+				var result = await _proposalService.GetProposalsForLecture(Guid.Parse(User.FindFirstValue("UserID")));
+				return StatusCode(result.Status, result);
+			}
+			return Unauthorized();
+		}
+
 		[HttpGet("get-proposal-by-id")]
 		public async Task<IActionResult> GetProposalByID(int proposalID)
 		{

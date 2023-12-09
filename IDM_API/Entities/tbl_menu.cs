@@ -14,6 +14,9 @@ public partial class tbl_menu
     [Key]
     public int MenuID { get; set; }
 
+    [StringLength(50)]
+    public string Code { get; set; }
+
     [Required]
     [StringLength(255)]
     public string MenuName { get; set; }

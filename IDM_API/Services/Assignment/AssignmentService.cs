@@ -154,6 +154,38 @@ namespace IDM_API.Services.Assignment
 			}
 		}
 
+		public async Task<ApiResponse<List<AssignmentDTO>>> GetAssignmentsForLecture(Guid userID)
+		{
+			try
+			{
+				await Task.CompletedTask;
+				var assignments = await _context.tbl_assignments.Where(x => x.Employee == userID).ToListAsync();
+
+				if (!assignments.Any())
+				{
+					return new ApiResponse<List<AssignmentDTO>>
+					{
+						Success = false,
+						Message = "Không có công việc nào.",
+						Status = (int)HttpStatusCode.NotFound
+					};
+				}
+
+				return new ApiResponse<List<AssignmentDTO>>
+				{
+					Success = true,
+					Message = $"Lấy danh sách công việc của {userID} thành công.",
+					Data = assignments.Select(x => _mapper.Map<AssignmentDTO>(x)).ToList(),
+					Status = (int)HttpStatusCode.OK
+				};
+			}
+			catch (Exception)
+			{
+
+				throw;
+			}
+		}
+
 		public async Task<ApiResponse<AssignmentDTO>> UpdateAssignment(int assignmentID, UpdateAssignmentDTO assignment)
 		{
 			try

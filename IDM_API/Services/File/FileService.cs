@@ -221,7 +221,9 @@ namespace IDM_API.Services.File
 					{
 						file.CopyTo(stream);
 					}
-					return pathToSave;
+
+					int fileIndex = pathToSave.IndexOf("Files");
+					return pathToSave.Substring(fileIndex); ;
 				}
 				return string.Empty;
 			}

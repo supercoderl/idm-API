@@ -4,8 +4,17 @@ using IDM_API.Data.Assignment;
 using IDM_API.Data.Proposal;
 using IDM_API.Entities;
 using IDM_API.Services.Approval;
+using Lucene.Net.Analysis.Standard;
+using Lucene.Net.Documents;
+using Lucene.Net.Index;
+using Lucene.Net.Search;
+using Lucene.Net.Store;
+using Lucene.Net.Util;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Client;
 using System.Net;
+using static System.Reflection.Metadata.BlobBuilder;
 
 namespace IDM_API.Services.Proposal
 {
@@ -14,6 +23,7 @@ namespace IDM_API.Services.Proposal
 		private readonly IDMContext _context;
 		private readonly IApprovalService _approvalService;
 		private readonly IMapper _mapper;
+		private readonly string _indexPath = @"C:\Path\To\Your\Lucene\Index";
 
 		public ProposalService(IDMContext context, IApprovalService approvalService, IMapper mapper)
         {
@@ -141,6 +151,41 @@ namespace IDM_API.Services.Proposal
 				{
 					Success = false,
 					Message = "ProposalService - GetProposals: " + ex.Message,
+					Status = (int)HttpStatusCode.InternalServerError
+				};
+			}
+		}
+
+		public async Task<ApiResponse<List<ProposalDTO>>> GetProposalsForLecture(Guid userID)
+		{
+			try
+			{
+				await Task.CompletedTask;
+				var proposals = await _context.tbl_proposals.Where(x => x.CreatedBy == userID).ToListAsync();
+				if (!proposals.Any())
+				{
+					return new ApiResponse<List<ProposalDTO>>
+					{
+						Success = false,
+						Message = "Không có đề xuất nào.",
+						Status = (int)HttpStatusCode.NotFound
+					};
+				}
+
+				return new ApiResponse<List<ProposalDTO>>
+				{
+					Success = true,
+					Message = $"Lấy danh sách đề xuất của {userID} thành công.",
+					Data = proposals.Select(x => _mapper.Map<ProposalDTO>(x)).ToList(),
+					Status = (int)HttpStatusCode.OK
+				};
+			}
+			catch (Exception ex)
+			{
+				return new ApiResponse<List<ProposalDTO>>
+				{
+					Success = false,
+					Message = "ProposalService - GetProposalsForLecture: " + ex.Message,
 					Status = (int)HttpStatusCode.InternalServerError
 				};
 			}

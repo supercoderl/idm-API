@@ -21,7 +21,7 @@ namespace IDM_API.Controllers
 		[HttpGet("get-schedules")]
 		public async Task<IActionResult> GetSchedules()
 		{
-			var result = await _scheduleService.GetSchedules();
+			var result = await _scheduleService.GetSchedules("asd");
 			return StatusCode(result.Status, result);
 		}
 
@@ -39,7 +39,7 @@ namespace IDM_API.Controllers
 			return StatusCode(result.Status, result);
 		}
 
-		[HttpPut("update-schedule")]
+		[HttpPut("update-schedule/{scheduleID}")]
 		public async Task<IActionResult> UpdateSchedule(int scheduleID, UpdateScheduleDTO schedule)
 		{
 			var result = await _scheduleService.UpdateSchedule(scheduleID, schedule);

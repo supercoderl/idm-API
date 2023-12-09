@@ -1,0 +1,15 @@
+docker run -d --name *your-name* -p *your-port:docker-port* *docker-image* //Run docker
+docker stop $(docker ps --filter status=running -q) //Stop all running docker
+docker rm $(docker ps -aq) //Remove all docker
+docker rmi <your-image-id> //Remove image by id
+docker build -t *your-image:your-version* . //Build an image
+docker tag *your-image-id* *username/your-image*
+docker login //Login
+docker push *your-tag* //Push image to docker hub
+docker pull
+docker network create -d *your-driver* *network-name*
+docker run -d --net test --name postgres -e POSTGRES_PASSWORD=123456 -e POSTGRES_USER=postgres postgres
+docker exec -it *network-id* /bin/bash
+docker run -d --name test --namedrupal -p 8080:80 --link postgres123 drupal
+docker compose version
+docker compose -f docker-compose-drupal.yml up -d
