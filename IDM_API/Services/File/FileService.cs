@@ -55,16 +55,7 @@ namespace IDM_API.Services.File
 			try
 			{
 				await Task.CompletedTask;
-				var file = await _context.tbl_files.FindAsync(fileID);
-				if (file == null)
-					return new ApiResponse<object>
-					{
-						Success = false,
-						Message = "Không tìm thấy tài liệu.",
-						Status = (int)HttpStatusCode.NotFound
-					};
-
-				_context.tbl_files.Remove(file);
+				await _context.Database.ExecuteSqlInterpolatedAsync($"sp_deleteFile {fileID}");
 
 				await _context.SaveChangesAsync();
 				return new ApiResponse<object>

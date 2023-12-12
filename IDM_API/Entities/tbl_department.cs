@@ -16,6 +16,10 @@ public partial class tbl_department
 
     [Required]
     [StringLength(255)]
+    public string DepartmentCode { get; set; }
+
+    [Required]
+    [StringLength(255)]
     public string DepartmentName { get; set; }
 
     [Required]
